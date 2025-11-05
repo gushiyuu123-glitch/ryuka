@@ -72,8 +72,13 @@ export default function Home() {
       </section>
 
       {/* ===== Product Section ===== */}
-     <section className="products">
-  <div className="scent-smoke"></div>  {/* ←香りの漂いレイヤー */}
+ <section className="products">
+  {/* 背景動画（淡い光煙） */}
+  <video className="product-bg" autoPlay muted loop playsInline>
+    <source src="/videos/light-smoke.mp4" type="video/mp4" />
+  </video>
+
+  <div className="scent-smoke"></div>
   <h2>商品ラインナップ</h2>
   <div className="product-grid">
 

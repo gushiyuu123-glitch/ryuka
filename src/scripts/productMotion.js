@@ -76,3 +76,17 @@ export function initProductMotion() {
     });
   });
 }
+gsap.fromTo(".products h2",
+  { opacity: 0.6, filter: "brightness(1)" },
+  {
+    opacity: 1,
+    filter: "brightness(1.4)",
+    scrollTrigger: {
+      trigger: ".products h2",
+      start: "top 80%",
+      toggleActions: "play none none reverse"
+    },
+    duration: 1.2,
+    ease: "power2.out"
+  }
+);

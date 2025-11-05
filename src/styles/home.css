@@ -449,20 +449,47 @@
   margin-bottom: 2.6rem;
 }
 /* =============================
-   🕯️ Product Section — 琉香：香りの世界（展示デザイン）
+   🕯️ Product Section — 琉香：香りの世界
    ============================= */
 .products {
   position: relative;
   padding: 10rem 6% 12rem;
-  background: linear-gradient(to bottom, #f9f8f5, #f3f2ee);
-  overflow: hidden;
+  background: transparent;
+  overflow: hidden; /* ← セクション内で完結させる */
 }
 
-/* 柔光＋粒子背景 */
+/* =============================
+   🎥 背景動画 — 香りの光を漂わせる層
+   ============================= */
+.product-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 1;
+  opacity: 0.8;
+  filter: brightness(1.35) contrast(1.25) saturate(1.2) blur(4px);
+  mix-blend-mode: lighten;
+  pointer-events: none;
+  animation: lightDrift 18s ease-in-out infinite alternate;
+}
+
+@keyframes lightDrift {
+  0%   { transform: scale(1.02); opacity: 0.75; filter: brightness(1.2) blur(5px); }
+  50%  { transform: scale(1.05); opacity: 0.9;  filter: brightness(1.45) blur(3px); }
+  100% { transform: scale(1.03); opacity: 0.8;  filter: brightness(1.3) blur(4px); }
+}
+
+/* =============================
+   🌌 柔光＋粒子背景
+   ============================= */
 .products::before {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 2;
   background:
     radial-gradient(900px 600px at 30% 20%, rgba(232,179,126,0.12), transparent 70%),
     radial-gradient(1000px 700px at 70% 80%, rgba(168,216,209,0.1), transparent 80%);
@@ -470,23 +497,52 @@
   animation: productGlow 16s ease-in-out infinite alternate;
   pointer-events: none;
 }
+
 @keyframes productGlow {
   0% { transform: scale(1); opacity: 0.5; }
   100% { transform: scale(1.04) translateY(-4px); opacity: 0.85; }
 }
 
-.products h2 {
-  font-family: "Shippori Mincho B1", serif;
-  text-align: center;
-  font-size: clamp(2rem, 3vw, 2.6rem);
-  letter-spacing: 0.1em;
-  color: rgba(47,47,47,0.9);
-  margin-bottom: 6rem;
-  position: relative;
-  z-index: 5;
+.products::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px);
+  background-size: 120px 120px;
+  animation: scentFlow 28s linear infinite;
+  opacity: 0.25;
+  pointer-events: none;
 }
 
-/* ===== 新・展示レイアウト ===== */
+@keyframes scentFlow {
+  from { background-position: 0 0; }
+  to   { background-position: 120px 100px; }
+}
+
+/* =============================
+   💫 香光オーバーレイ（漂う光）
+   ============================= */
+.product-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background:
+    radial-gradient(circle at 40% 70%, rgba(232,179,126,0.08), transparent 70%),
+    radial-gradient(circle at 60% 30%, rgba(168,216,209,0.08), transparent 70%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: overlayDrift 20s ease-in-out infinite alternate;
+}
+
+@keyframes overlayDrift {
+  0%   { transform: translateY(0) scale(1); opacity: 0.5; }
+  100% { transform: translateY(-10px) scale(1.05); opacity: 0.8; }
+}
+
+/* =============================
+   🪞 商品グリッドとカード
+   ============================= */
 .product-grid {
   display: flex;
   flex-wrap: wrap;
@@ -495,10 +551,10 @@
   perspective: 2000px;
   transform-style: preserve-3d;
   position: relative;
-  z-index: 5;
+  z-index: 4; /* ← 最前面 */
+  background: transparent;
 }
 
-/* ===== 展示カード ===== */
 .product-card {
   position: relative;
   width: 450px;
@@ -506,17 +562,18 @@
   border-radius: 24px;
   box-shadow: 0 12px 32px rgba(0,0,0,0.05);
   overflow: hidden;
-  transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1),
+  transition: transform 0.8s cubic-bezier(0.19,1,0.22,1),
               box-shadow 0.8s ease;
-              backface-visibility: hidden;
   transform-style: preserve-3d;
+  pointer-events: auto;
 }
+
 .product-card:hover {
   transform: translateY(-14px) rotateX(3deg) rotateY(-2deg) scale(1.04);
   box-shadow: 0 24px 48px rgba(0,0,0,0.12);
 }
 
-/* ===== 光のフォーカス ===== */
+/* 光のフォーカス */
 .product-card::before {
   content: "";
   position: absolute;
@@ -526,9 +583,7 @@
   opacity: 0;
   transition: opacity 0.8s ease;
 }
-.product-card:hover::before {
-  opacity: 1;
-}
+.product-card:hover::before { opacity: 1; }
 
 /* ===== 画像 ===== */
 .product-card img {
@@ -536,13 +591,39 @@
   height: 260px;
   object-fit: cover;
   transform-origin: center;
-  transition: transform 1.6s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: transform 1.6s cubic-bezier(0.19,1,0.22,1);
 }
 .product-card:hover img {
   transform: scale(1.1) translateY(-4px);
 }
 
 /* ===== テキスト ===== */
+.products h2 {
+  position: relative;
+  z-index: 6;
+  font-family: "Shippori Mincho B1", serif;
+  text-align: center;
+  font-size: clamp(1rem, 3vw, 2.6rem);
+  letter-spacing: 0.1em;
+  color: rgba(47,47,47,0.9);
+  text-shadow:
+    0 0 12px rgba(255,255,255,0.6),
+    0 2px 8px rgba(232,179,126,0.25);
+  
+  /* 🎯 中央固定 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* 背景ぼかし＋光の縁 */
+  backdrop-filter: blur(6px) brightness(1.05);
+  background: rgba(255,255,255,0.25);
+  padding: 0.6rem 2.4rem;
+  border-radius: 999px;
+  margin: 0 auto 10rem; /* ← 完全中央寄せ */
+  width: fit-content;  /* ← テキストサイズに合わせつつ中央 */
+}
+
 .product-card h3 {
   font-family: "Poppins", sans-serif;
   font-weight: 500;
@@ -554,15 +635,12 @@
   -webkit-text-fill-color: transparent;
   transition: letter-spacing 0.4s ease;
 }
-.product-card:hover h3 {
-  letter-spacing: 0.12em;
-}
+.product-card:hover h3 { letter-spacing: 0.12em; }
 
 .product-card .subtitle {
   font-size: 0.95rem;
   color: rgba(47,47,47,0.6);
   margin: 0 1.4rem 0.8rem;
-  font-weight: 400;
   letter-spacing: 0.03em;
 }
 
@@ -575,58 +653,13 @@
   letter-spacing: 0.02em;
 }
 
-/* ===== 香りの粒子層 ===== */
-.products::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px);
-  background-size: 120px 120px;
-  animation: scentFlow 28s linear infinite;
-  opacity: 0.3;
-  pointer-events: none;
-}
-@keyframes scentFlow {
-  from { background-position: 0 0; }
-  to { background-position: 120px 100px; }
-}
-
-/* ===== レスポンシブ ===== */
+/* =============================
+   レスポンシブ
+   ============================= */
 @media (max-width: 768px) {
   .products { padding: 7rem 5% 9rem; }
   .product-card { width: 100%; }
   .product-card img { height: 220px; }
-}
-/* =============================
-   🌫️ Scent Smoke — 香りの漂い層
-   ============================= */
-.scent-smoke {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at 35% 75%, rgba(232, 179, 126, 0.6), transparent 50%),
-    radial-gradient(ellipse at 65% 30%, rgba(168, 216, 209, 0.6), transparent 40%);
-  filter: blur(40px);
-  animation: smokeDrift 14s ease-in-out infinite alternate;
-  z-index: 5;
-  opacity: 1;
-  pointer-events: none;
-}
-
-@keyframes smokeDrift {
-  0%   { transform: translate(-20px, 20px) scale(1); }
-  50%  { transform: translate(10px, -10px) scale(1.05); }
-  100% { transform: translate(-10px, 10px) scale(1.03); }
-}
-
-.products {
-  position: relative;
-  z-index: 0;
-  overflow: visible;
-}
-.product-grid {
-  position: relative;
-  z-index: 5;
 }
 
 /* =============================
@@ -651,7 +684,7 @@
   align-items: center;
   max-width: 1500px;
   position: relative;
-  z-index: 3;
+  z-index: 4;
   perspective: 1200px;
 }
 
