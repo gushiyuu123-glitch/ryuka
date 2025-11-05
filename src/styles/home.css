@@ -3,6 +3,7 @@
    ============================= */
 .hero {
   position: relative;
+  z-index: 0;
   width: 100%;
   height: 100vh;
   display: flex;
@@ -12,18 +13,13 @@
   text-align: center;
   overflow: hidden;
   color: #2f2f2f;
-
-  /* ← fixed をやめる。JSで動かす前提にする */
-background:
-  linear-gradient(to bottom, rgba(249,248,245,0.38), rgba(236,235,232,0.42)),
-  url("/images/hero.jpg") center 0% / cover no-repeat;
-
-  background-attachment: scroll !important;
-
-  /* パフォーマンスヒント */
+  background:
+    linear-gradient(to bottom, rgba(249,248,245,0.38), rgba(236,235,232,0.42)),
+    url("/images/hero.jpg") center 0% / cover no-repeat;
+  background-attachment: scroll;
   will-change: background-position;
-  transform: none !important;
-  opacity: 1 !important;
+  transform: none;
+  opacity: 1;
 }
 
 .hero::after {
@@ -134,17 +130,17 @@ background:
   from { transform: translate3d(0, 0, 0) scale(1); opacity: 0.75; }
   to   { transform: translate3d(8px, -6px, 0) scale(1.04); opacity: 0.95; }
 }
-
 .hero-scent {
   position: absolute;
   inset: 0;
-  z-index: 3;
   background:
-    radial-gradient(circle at 40% 50%, rgba(255,255,255,0.08), transparent 70%),
-    radial-gradient(circle at 70% 60%, rgba(255,255,255,0.06), transparent 80%);
-  mix-blend-mode: soft-light;
-  animation: scentDrift 18s ease-in-out infinite alternate;
+    radial-gradient(ellipse at 40% 75%, rgba(232,179,126,0.18), transparent 70%),
+    radial-gradient(ellipse at 60% 30%, rgba(168,216,209,0.15), transparent 80%);
+  filter: blur(40px);
+  mix-blend-mode: screen;
+  opacity: 0.6;
   pointer-events: none;
+  z-index: 2;
 }
 @keyframes scentDrift {
   0% { transform: translate3d(0, 0, 0); opacity: 0.35; }
