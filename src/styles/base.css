@@ -1,0 +1,86 @@
+/* =============================
+   🌿 RYUKA Base Style — Gushiken Design
+   ============================= */
+
+/* --- Google Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1&family=Poppins:wght@300;500&display=swap');
+
+/* --- Theme Colors --- */
+:root {
+  --bg: #f9f8f5;     /* 白砂 - 優しい生成り */
+  --text: #2f2f2f;   /* 墨 - 深く落ち着いた黒 */
+  --gold: #e8b37e;   /* 金光 - 温かみあるゴールド */
+  --mint: #a8d8d1;   /* 琉海 - ミントブルー */
+  --gray: #e6e4df;   /* 陶器色のグレー */
+}
+
+/* --- Reset --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* --- Body --- */
+body {
+  font-family: "Shippori Mincho B1", serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.9;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* --- Typography --- */
+h1, h2, h3 {
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+p {
+  line-height: 2;
+  font-weight: 400;
+  color: rgba(47,47,47,0.82);
+}
+
+/* --- 英字タイトル（Heroなど） --- */
+.en {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  color: rgba(47,47,47,0.85);
+}
+
+/* --- 強調（香りや光を表現） --- */
+em {
+  font-style: normal;
+  color: var(--gold);
+  font-weight: 500;
+}
+
+/* --- リンク --- */
+a {
+  color: var(--mint);
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+a:hover {
+  opacity: 0.7;
+}
+
+/* --- セクション共通余白 --- */
+section {
+  padding: 8rem 6%;
+}
+
+/* --- メディア調整 --- */
+@media (max-width: 768px) {
+  section {
+    padding: 5rem 1.5rem;
+  }
+  body {
+    line-height: 1.85;
+  }
+}
