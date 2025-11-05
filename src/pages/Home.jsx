@@ -5,6 +5,7 @@ import "../styles/home.css";
 import { initParallax } from "../scripts/parallax.js";
 import { initProductMotion } from "../scripts/productMotion.js"; // ← 商品モーション追加
 import { initPageTransition } from "../scripts/pageTransition.js";
+import { initHeroMotion } from "../scripts/heroMotion.js"; // ← ここ追加！
 
 export default function Home() {
   useEffect(() => {
@@ -12,6 +13,7 @@ export default function Home() {
     initParallax();        // 背景のゆるい動き
     initProductMotion();   // 商品カードの3Dモーション
     initPageTransition(); // ←追加
+    initHeroMotion(); // ← ここで呼ぶ！
   }, []);
 
   return (
