@@ -19,17 +19,28 @@ export default function Home() {
   return (
     <main className="home">
       {/* ===== Hero Section ===== */}
-      <section className="hero">
-        <div className="hero-inner">
-          <h1>琉香 — RYUKA</h1>
-          <p>光と静寂のあいだに香る。</p>
-        </div>
+{/* ===== Hero Section ===== */}
+  <section className="hero">
+    <div className="hero-inner">
+      <h1>琉香 — RYUKA</h1>
+      <p>光と静寂のあいだに香る。</p>
+    </div>
 
-        <div className="hero-scent"></div>
-        <div className="hero-bokeh"></div>
-        <div className="hero-glow"></div>
-        <div className="hero-scroll">scroll</div>
-      </section>
+    <div className="hero-scent"></div>
+    <div className="hero-vapor"></div>
+
+    {/* 泡を増量：淡いピンク、水色、白を混ぜる */}
+    <div className="hero-bubbles">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div className="hero-bokeh"></div>
+    <div className="hero-glow"></div>
+    <div className="hero-scroll">scroll</div>
+  </section>
+
 
       {/* ===== Lead Section ===== */}
       <section className="lead">

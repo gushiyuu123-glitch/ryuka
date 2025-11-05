@@ -17,30 +17,31 @@ export function initHeroMotion() {
     return;
   }
 
-  // ふわっと香りが漂うような動き
-  gsap.fromTo(
-    scent,
-    { opacity: 0.3, y: 20, scale: 1 },
-    {
-      opacity: 0.7,
-      y: -40,
-      scale: 1.05,
-      duration: 6,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut",
-    }
-  );
+  // 💨 香りがふわっと上昇 → ほんの少し揺らめくように
+gsap.fromTo(
+  scent,
+  { opacity: 0.5, y: 50, scale: 1 },
+  {
+    opacity: 0.95,
+    y: -100,
+    scale: 1.12,
+    duration: 8,
+    repeat: -1,
+    yoyo: true,
+    ease: "sine.inOut",
+  }
+);
 
-  // 背景のパララックス（上下の奥行き）
+
+  // 🌫️ 背景がスクロールでゆるく奥行きを出す
   gsap.to(hero, {
-    backgroundPosition: "center 30%",
+    backgroundPosition: "center 25%",
     ease: "none",
     scrollTrigger: {
       trigger: hero,
       start: "top top",
       end: "bottom top",
-      scrub: true,
+      scrub: 1.2,
     },
   });
 }
